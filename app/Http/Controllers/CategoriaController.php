@@ -6,6 +6,8 @@ use App\Models\Categoria;
 use App\Http\Requests\StoreCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
 use App\Models\Producto;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class CategoriaController extends Controller
 {
@@ -14,59 +16,75 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('categorias', compact('categorias'));
+        $usuarios = User::all(); // Obtener todos los usuarios
+        $categorias = Categoria::all(); // Obtener todas las categorías
+        return view('CrudSupervisor', compact('usuarios', 'categorias')); // Pasar las variables a la vista
     }
 
-    
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCategoriaRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Categoria $categoria)
     {
         //
     }
+    public function crud()
+{
+        $usuarios = User::all(); // Obtener todos los usuarios
+        $categorias = Categoria::all(); // Obtener todas las categorías
+        return view('CrudSupervisor', compact('usuarios', 'categorias'));
+}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function create()
     {
-        //
+        return view('CreateCategorias');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCategoriaRequest $request, Categoria $categoria)
-    {
-        //
-    }
+    public function store(Request $request)
+{
+    $request->validate([
+        'nombre' => 'required',
+    ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Categoria $categoria)
-    {
-        //
-    }
+    Categoria::create($request->only('nombre'));
+
+    return redirect()->route('CrudSupervisor')
+        ->with('success', 'Categoría creada exitosamente.');
+}
+
+public function edit($id)
+{
+    $categoria = Categoria::findOrFail($id);
+    return view('EditCategorias', compact('categoria'));
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nombre' => 'required',
+    ]);
+
+    $categoria = Categoria::find($id);
+    $categoria->update($request->only('nombre'));
+
+    return redirect()->route('CrudSupervisor')
+        ->with('success', 'Categoría actualizada exitosamente.');
+}
+    
+
+public function destroy($id)
+{
+    $categoria = Categoria::find($id);
+    $categoria->delete();
+
+    return redirect()->route('CrudSupervisor')
+        ->with('success', 'Categoría eliminada exitosamente.');
+}
 
     public function productosPorCategoria($id)
 {
@@ -84,5 +102,23 @@ class CategoriaController extends Controller
     $productos = $query->get();
 
     return view('productosPorCategoria', compact('categoria', 'productos'));
+}
+
+public function productosPorCategoriaSup($id)
+{
+    $categoria = Categoria::findOrFail($id);
+    $query = Producto::where('idCategoria', $id);
+
+    $search = request('search');
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('nombre', 'like', '%' . $search . '%')
+              ->orWhere('descripcion', 'like', '%' . $search . '%');
+        });
+    }
+
+    $productos = $query->get();
+
+    return view('ProductosCategoriaSupervisor', compact('categoria', 'productos'));
 }
 }
