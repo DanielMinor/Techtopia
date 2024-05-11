@@ -1,4 +1,6 @@
-<div class="container">
+@extends('layouts.app')
+@section('contenido')
+
     <h1>Crear Usuario</h1>
     <form action="{{ route('StoreUsuario') }}" method="POST">
         @csrf
@@ -53,5 +55,5 @@
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
 
+    @endsection

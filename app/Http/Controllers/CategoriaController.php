@@ -22,19 +22,23 @@ class CategoriaController extends Controller
     }
 
 
+
     /**
      * Show the form for creating a new resource.
      */
     
     public function show(Categoria $categoria)
     {
-        //
+        $categoria = Categoria::all();
+        return view('categorias',compact('categoria'));
     }
+    
     public function crud()
 {
-        $usuarios = User::all(); // Obtener todos los usuarios
-        $categorias = Categoria::all(); // Obtener todas las categorías
-        return view('CrudSupervisor', compact('usuarios', 'categorias'));
+    $usuariosEncargado = User::whereIn('rol', ['Encargado', 'Cliente', 'Contador'])->get(); // Obtener todos los usuarios
+    $usuariosSupervisor = User::all(); // Obtener todos los usuarios
+    $categorias = Categoria::all(); // Obtener todas las categorías
+    return view('CrudSupervisor', compact('usuariosEncargado', 'usuariosSupervisor', 'categorias'));
 }
 
     /**

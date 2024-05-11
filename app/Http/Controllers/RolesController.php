@@ -15,12 +15,14 @@ class RolesController extends Controller
         return view('contador');
     }
     public function encargado(){
-        return 'encargado';
+        $usuariosEncargado = User::whereIn('rol', ['Encargado', 'Cliente', 'Contador'])->get(); // Obtener todos los usuarios
+        $categorias = Categoria::all(); // Obtener todas las categorías
+        return view('CrudSupervisor', compact('usuariosEncargado', 'categorias'));
     }
     public function supervisor(){
-        $usuarios = User::all(); // Obtener todos los usuarios
+        $usuariosSupervisor = User::all(); // Obtener todos los usuarios
         $categorias = Categoria::all(); // Obtener todas las categorías
-        return view('CrudSupervisor', compact('usuarios', 'categorias'));
+        return view('CrudSupervisor', compact('usuariosSupervisor', 'categorias'));
     }
     public function vendedor(){
         return 'vendedor';

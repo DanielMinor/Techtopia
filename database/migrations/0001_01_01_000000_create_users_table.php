@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('sexo',['Masculino' , 'Femenino' , 'Prefiero no decirlo'])->default('Prefiero no decirlo');
             $table->string('direccion')->nullable();
             $table->enum('rol',['Encargado','Cliente','Contador','Supervisor','Vendedor']) -> default('Cliente');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

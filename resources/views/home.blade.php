@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <a href="{{route('login.index')}}">log in</a>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('contenido')
+    
+
+        @if(auth()->check())
+        <h1>Bienvenido a tu página de inicio, {{auth()->user()->name}}</h1>
+        <p>tu rol es -----> {{auth()->user()->rol}}</p>
+        <p>HOLAAA</p>
+
+        @else
+        <!-- Contenido específico de la página de inicio -->
+        <h1>Bienvenido a tu página de inicio</h1>
+        <p>Este es el contenido de la página de inicio.</p>
+        <p>HOLAAA</p>
+        <!-- Agrega más contenido según sea necesario -->
+        @endif
+@endsection

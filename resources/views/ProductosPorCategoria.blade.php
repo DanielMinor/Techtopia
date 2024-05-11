@@ -1,27 +1,13 @@
-<!-- productosPorCategoria.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('contenido')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos por Categoría</title>
-    <!-- Incluir Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Estilos personalizados */
-        .card {
-            margin-bottom: 20px; /* Espacio entre tarjetas */
-        }
-    </style>
-</head>
 
 <body>
     <div class="container">
         <h1>Productos de la Categoría {{ $categoria->nombre }}</h1>
 
         <!-- Botón para regresar a categorías -->
-        <a href="{{ route('categorias') }}" class="btn btn-secondary mb-4">Volver a Categorías</a>
+     
 
         <!-- Formulario de búsqueda -->
         <form action="{{ route('productosPorCategoria', $categoria->id) }}" method="GET" class="mb-4">
@@ -59,6 +45,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
-</html>
 
+@endsection
 

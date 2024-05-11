@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del Producto</title>
-    <!-- Incluir Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@extends('layouts.app')
+@section('contenido')
 
 <body>
     <div class="container">
@@ -54,7 +46,7 @@
 
         
 
-        <a href="{{ route('lista') }}" class="btn btn-primary mt-4">Ver Productos</a>
+
     </div>
 
     <!-- Incluir Bootstrap JS y jQuery -->
@@ -63,4 +55,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
-</html>
+@extends('layouts.app')
+@section('contenido')
+@endsection

@@ -1,4 +1,7 @@
-<div class="container">
+@extends('layouts.app')
+@section('contenido')
+
+
     <h1>Crear Categoría</h1>
     <form action="{{ route('StoreCategorias') }}" method="POST">
         @csrf
@@ -8,6 +11,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
+
+    @endsection
 
 
